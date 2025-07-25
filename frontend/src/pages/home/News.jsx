@@ -7,35 +7,44 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Link } from "react-router";
 
+// Add more news items to support loop
 const news = [
   {
     id: 1,
-    title: "Climate Summit Calls for Action",
-    description:
-      "World leaders discuss urgent strategies to combat climate change.",
+    title: "New Bestseller Release",
+    description: "Discover the latest thriller that's taking the world by storm.",
     image: news1,
   },
   {
     id: 2,
-    title: "AI Technology Breakthrough",
-    description:
-      "New AI advancements expected to transform major industries.",
+    title: "Author Book Signing Event",
+    description: "Meet your favorite authors at our upcoming signing event.",
     image: news2,
   },
   {
     id: 3,
-    title: "Space Mission to Distant Galaxies",
-    description:
-      "NASA reveals plans for exploring the outer reaches of space.",
+    title: "Summer Reading Program",
+    description: "Join our summer reading challenge and win exciting prizes.",
     image: news3,
   },
   {
     id: 4,
-    title: "Markets Reach Record Highs",
-    description:
-      "Global stock markets rise amid signs of economic recovery.",
+    title: "Book Club Weekly Meetup",
+    description: "Discuss this month's featured book with fellow readers.",
     image: news4,
   },
+  {
+    id: 5,
+    title: "Poetry Night at the Store",
+    description: "Experience spoken word poetry from local and renowned poets.",
+    image: news1, // Reuse images
+  },
+  {
+    id: 6,
+    title: "Children's Story Hour",
+    description: "Bring your little ones for interactive storytelling sessions.",
+    image: news2,
+  }
 ];
 
 const News = () => {

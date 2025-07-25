@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import { MdOutlinePersonOff } from "react-icons/md";
 import { FaHeart, FaShoppingCart, FaUser } from "react-icons/fa";
+import { useSelector } from "react-redux";
 const navigation = [
   { name: "orders", href: "/orders" },
   { name: "Dashboard", href: "/dashboard" },
@@ -16,6 +17,8 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState("");
   const currentUser = false;
   console.log(isDropdownOpen);
+
+  const cartItems = useSelector((state) => state.cart. cartItems);
   return (
     <header
       className="bg-bg shadow-sm border-b"
@@ -111,7 +114,7 @@ const Navbar = () => {
               className="bg-secondary hover:opacity-90 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-all duration-200 font-secondary font-medium"
             >
               <FaShoppingCart className="h-4 w-4" />
-              <span className="text-sm">0</span>
+              <span className="text-sm">{cartItems.length}</span>
             </Link>
           </div>
         </div>

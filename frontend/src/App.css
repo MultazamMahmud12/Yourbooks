@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 .swiper {
     width: 100%;
     height: 100%;
@@ -72,6 +73,7 @@
 .custom-next:hover {
   background: var(--color-bg-light);
 }
+
 @theme {
    /* Font Families */
   --font-primary: "Satoshi", "sans-serif";
