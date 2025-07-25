@@ -1,0 +1,107 @@
+@import "tailwindcss";
+.swiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swiper-slide {
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+ .swiper-button-prev {
+    display: none !important;
+ }
+ .swiper-button-next{
+    @apply bg-white p-5 rounded-full z-50 shadow-md
+ }
+
+ .swiper-button-prev:after, .swiper-button-next:after{
+    font-size: 16px !important;
+ }
+
+ .btn-primary {
+    @apply bg-primary  px-12 py-2 rounded-md text-base font-secondary font-bold hover:bg-secondary hover:text-white transition-all duration-200 cursor-pointer
+ }
+
+.html{
+   scroll-behavior: smooth;
+}
+/* Minimalist News Component Styles */
+.minimalist-swiper .swiper-pagination {
+  position: relative;
+  margin-top: 2rem;
+}
+
+.minimalist-bullet {
+  width: 8px !important;
+  height: 8px !important;
+  background: var(--color-border) !important;
+  border-radius: 50% !important;
+  opacity: 1 !important;
+  margin: 0 6px !important;
+  transition: all 0.3s ease !important;
+}
+
+.minimalist-bullet-active {
+  background: var(--color-secondary) !important;
+  transform: scale(1.2) !important;
+}
+
+.custom-prev,
+.custom-next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.custom-prev:hover,
+.custom-next:hover {
+  background: var(--color-bg-light);
+}
+@theme {
+   /* Font Families */
+  --font-primary: "Satoshi", "sans-serif";
+  --font-secondary: "Inter", "sans-serif";
+  
+  /* Color Palette */
+  --color-primary: #FFCE1A;
+  --color-secondary: #FF6B35;
+  --color-bg: #FFFFFF;
+  --color-text: #1F2937;
+  --color-text-light: #6B7280;
+  
+  /* Additional Colors for Bookstore Theme */
+  --color-accent: #3B82F6;
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+  
+  /* Background Variations */
+  --color-bg-light: #F9FAFB;
+  --color-bg-dark: #111827;
+  
+  /* Border Colors */
+  --color-border: #E5E7EB;
+  --color-border-light: #F3F4F6;
+  
+  /* Shadow Colors */
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-shadow-md: rgba(0, 0, 0, 0.15);
+  --color-shadow-lg: rgba(0, 0, 0, 0.2);
+  
+}
+
