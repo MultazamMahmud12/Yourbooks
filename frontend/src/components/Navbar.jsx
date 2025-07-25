@@ -14,7 +14,7 @@ const navigation = [
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState("");
-  const currentUser = true;
+  const currentUser = false;
   console.log(isDropdownOpen);
   return (
     <header
