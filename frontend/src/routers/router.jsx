@@ -8,6 +8,7 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import Cart from "../pages/cart/Cart";
 import Checkout from "../pages/book/Checkout";
+import BookDetails from "../pages/book/BookDetails";
  // Add this import
 
 const router = createBrowserRouter([
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
         path: "/checkout",
         element: <Checkout/>
       },
+      {
+        path : "/books/:id",
+        element: <BookDetails/>
+      }
     ]
   },
   

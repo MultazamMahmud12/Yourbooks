@@ -1,13 +1,14 @@
 
 import  { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { FaGoogle, FaEye, FaEyeSlash, FaEnvelope, FaLock } from 'react-icons/fa';
+import { useAuth } from '../context/Authcontext';
 
 
  
 const Register = () => {
-  
-     const [formData, setFormData] = useState({
+    const {registerUser} = useAuth();
+    const [formData, setFormData] = useState({
     name : '',
     email: '',
     password: '',
@@ -29,11 +30,28 @@ const Register = () => {
     setIsLoading(true);
     // Add your login logic here
     console.log('Login attempt:', formData);
-    
-    // Simulate API call
-    setTimeout(() => {
+      if (formData.password !== formData.confirmPassword) {
       setIsLoading(false);
-    }, 2000);
+      return;
+    }
+     if (formData.password.length < 6) {
+     
+      setIsLoading(false);
+      return;
+    }
+    try {
+      // ✅ Call the correct function name
+      await registerUser(formData.email, formData.password);
+      
+      // Success - redirect to login or dashboard
+      
+      // Or show success message
+      alert("Registration successful! Please sign in.");
+    } catch (error) {
+      console.error('Registration error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleGoogleSignIn = () => {

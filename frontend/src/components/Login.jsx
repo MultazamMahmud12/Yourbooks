@@ -1,6 +1,7 @@
 import  { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaEye, FaEyeSlash, FaEnvelope, FaLock } from 'react-icons/fa';
+import { useAuth } from '../context/Authcontext';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,29 +10,45 @@ const Login = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
-
+  const { loginUser, signInWithGoogle } = useAuth();
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError(''); 
     // Add your login logic here
     console.log('Login attempt:', formData);
-    
+    try {
+      await loginUser(formData.email, formData.password);
+      navigate("/");
+
+    } catch (error) {
+      console.error('Login failed:', error);
+      // Handle login error (e.g., show a notification)
+      
+    }
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
   };
 
-  const handleGoogleSignIn = () => {
-    // Add Google sign-in logic here
-    console.log('Google sign-in clicked');
+  const handleGoogleSignIn = async () => {
+   try {
+      await signInWithGoogle();
+      navigate("/");
+   } catch (error) {
+      console.error('Google sign-in failed:', error);
+      // Handle Google sign-in error (e.g., show a notification)
+    
+   }
   };
 
   return (
