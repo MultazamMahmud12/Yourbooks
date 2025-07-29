@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { clearcart } from '../../redux/features/cart/Cartslice'
+import { useAuth } from '../../context/Authcontext';
 
 const Checkout = () => {
     const cartItems = useSelector((state) => state.cart.cartItems);
     const dispatch = useDispatch();
     
-    // ✅ Fixed: Calculate total price correctly
+   
     const totalPrice = cartItems.reduce((total, item) => {
         const price = item.newPrice || item.price || 0;
         const quantity = item.quantity || 1;
@@ -15,16 +16,16 @@ const Checkout = () => {
     }, 0).toFixed(2);
     
     const [isChecked, setIsChecked] = useState(false);
-    const currentUser = false; // Replace with actual user state
+     const { currentUser } = useAuth();
     
-    // ✅ Fixed: Handle form submission
+   
     const handleSubmit = (e) => {
         e.preventDefault();
         if (isChecked) {
             console.log("Order placed successfully!");
-            // Clear cart after successful order
+           
             dispatch(clearcart());
-            // Add logic to handle order placement
+            
         } else {
             alert("Please agree to the terms and conditions.");
         }
