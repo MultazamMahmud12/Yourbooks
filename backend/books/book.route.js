@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Book = require('./book.model.js'); // Adjust path if needed
 const { postAbook, getAllBooks, getSingleBook, updateBook, deleteBook } = require('./book.controller.js');
+const verifyAdminToken = require('../middleware/verifyAdminToken.js');
 
 //frontend => backend server
 //backend server => controller
@@ -18,7 +19,7 @@ const { postAbook, getAllBooks, getSingleBook, updateBook, deleteBook } = requir
 //delete = when delete somthing
 
 //post a book
-router.post("/create-book",postAbook);
+router.post("/create-book",verifyAdminToken,postAbook);
 
 
 //get all books
@@ -27,9 +28,9 @@ router.get("/",getAllBooks);
 router.get("/:id", getSingleBook); 
 
 //update a book
-router.put("/edit/:id", updateBook);
+router.put("/edit/:id",verifyAdminToken, updateBook);
 
 //delete a book
-router.delete("/:id", deleteBook);
+router.delete("/:id",verifyAdminToken, deleteBook);
 
 module.exports = router;

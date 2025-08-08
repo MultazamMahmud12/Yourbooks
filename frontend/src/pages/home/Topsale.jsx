@@ -180,14 +180,11 @@ const Topsale = () => {
             {filteredBooks.map((book, index) => (
               <SwiperSlide key={book._id || book.id || index} className="h-full">
                 {/* ✅ Wrap BookCard with Link to book details */}
-                <Link 
-                  to={`/books/${book._id || book.id}`}
-                  className="h-full block hover:shadow-lg transition-shadow duration-300"
-                >
+                
                   <div className="h-full">
                     <BookCard book={book} />
                   </div>
-                </Link>
+              
               </SwiperSlide>
             ))}
           </Swiper>

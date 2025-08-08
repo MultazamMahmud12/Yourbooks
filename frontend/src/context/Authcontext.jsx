@@ -1,4 +1,3 @@
-
 import { useContext, useEffect } from "react";
 import { createContext } from "react"; 
 import PropTypes from "prop-types";
@@ -9,46 +8,49 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndP
 } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 import { GoogleAuthProvider } from "firebase/auth";
-import { set } from "react-hook-form";
 
 const AuthContext = createContext();
+
 export const useAuth = () => {
     return useContext(AuthContext);
 }
 
 const googleProvider = new GoogleAuthProvider();
-//auth provider
+
+// Auth provider
 export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
-     // register a user 
-     const registerUser = async(EmailAuthCredential,password) => {
-        return createUserWithEmailAndPassword(auth, EmailAuthCredential, password);
-     }
-     const loginUser = async(EmailAuthCredential,password) => {
-        return signInWithEmailAndPassword(auth, EmailAuthCredential, password);
-     }
+    
+    // Register a user 
+    const registerUser = async(email, password) => {
+        return createUserWithEmailAndPassword(auth, email, password);
+    }
+    
+    const loginUser = async(email, password) => {
+        return signInWithEmailAndPassword(auth, email, password);
+    }
 
-     const signInWithGoogle = async () => {
+    const signInWithGoogle = async () => {
         return signInWithPopup(auth, googleProvider);
-     }
+    }
 
-     //logout
-     const logOut = ()  => {
+    // Logout
+    const logOut = () => {
         return signOut(auth);
     }
-    //manage user
+    
+    // Manage user
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user);
             setLoading(false);
-            if(user)
-            {
+            if(user) {
                 const { email, displayName, photoURL } = user;
                 const userData = {
                     email,
                     username: displayName,
-                    photo : photoURL,
+                    photo: photoURL,
                 };
                 // You can use userData here if needed
             }
@@ -58,15 +60,24 @@ export const AuthProvider = ({ children }) => {
     
     const value = {
         currentUser,
+        isloading : loading, // For backward compatibility
         loading,
         registerUser,
         loginUser,
         signInWithGoogle,
         logOut 
     }
+    
     return (
         <AuthContext.Provider value={value}>
-        {children}
+            {children}
         </AuthContext.Provider>
     )
 }
+
+// ✅ Add PropTypes validation for children
+AuthProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+};
+
+export default AuthContext;

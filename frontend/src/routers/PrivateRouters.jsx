@@ -3,7 +3,8 @@ import { useAuth } from '../context/Authcontext';
 import { Navigate } from 'react-router';
 
 const PrivateRouters = ({children}) => {
-    const {  currentUser } = useAuth(); 
+    const {  currentUser,isloading } = useAuth();
+    if(isloading) return <div className='min-h-screen flex items-center justify-center'>Loading...</div>
     if(currentUser)
     {
         return children; 

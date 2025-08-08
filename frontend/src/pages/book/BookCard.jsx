@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import getImgUrl from "../../utils/getImgURL";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/features/cart/Cartslice";
+import { Link } from "react-router";
 const BookCard = ({ book }) => {
   const dispatch = useDispatch();
   const handleAddToCart = (product) => {
@@ -11,7 +12,10 @@ const BookCard = ({ book }) => {
   return (
     
     <div className="w-full h-full rounded-lg shadow-md p-4 bg-white dark:bg-gray-900 transition-shadow duration-300 flex flex-col">
-      <div className="flex-grow">
+      <div className="flex-grow"><Link 
+                  to={`/books/${book._id || book.id}`}
+                  className="h-full block hover:shadow-lg transition-shadow duration-300"
+                >
         <div className="h-48 flex justify-center items-center mb-4 overflow-hidden rounded-md">
           <img
             src={getImgUrl(book.coverImage)}
@@ -27,6 +31,7 @@ const BookCard = ({ book }) => {
           ${book.newPrice}
           <span className="line-through font-normal ml-2">${book.oldPrice || 100}</span>
         </p>
+        </Link>
       </div>
       <button
        onClick={() => handleAddToCart(book)}

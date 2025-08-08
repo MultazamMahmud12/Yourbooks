@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { clearcart } from '../../redux/features/cart/Cartslice'
 import { useAuth } from '../../context/Authcontext';
+import { useCreateOrderMutation } from '../../redux/features/orders/orderAPI';
 
 const Checkout = () => {
     const cartItems = useSelector((state) => state.cart.cartItems);
@@ -16,10 +17,10 @@ const Checkout = () => {
     }, 0).toFixed(2);
     
     const [isChecked, setIsChecked] = useState(false);
-     const { currentUser } = useAuth();
+    const { currentUser } = useAuth();
     
-   
-    const handleSubmit = (e) => {
+    const [createOrder, {isLoading,error}] = useCreateOrderMutation(); 
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (isChecked) {
             console.log("Order placed successfully!");
@@ -29,17 +30,36 @@ const Checkout = () => {
         } else {
             alert("Please agree to the terms and conditions.");
         }
-        const newOrder = {
-         name : e.target.name.value,
-         email : e.target.email.value,
-         address : e.target.address.value,
-         items : cartItems,
-         total : totalPrice
+         const newOrder = {
+            name: e.target.name.value,
+            email: currentUser?.email || e.target.email.value,
+            phone: e.target.phone.value,
+            address: {
+                street: e.target.address.value,
+                city: e.target.city.value,
+                state: e.target.state.value,
+                country: e.target.country.value,
+                zipcode: e.target.zipcode.value
+            },
+            productIds: cartItems.map(item => item._id || item.id),
+            total: parseFloat(totalPrice)
+        };
+        try {
+            await createOrder(newOrder).unwrap();
+            console.log("Order placed successfully!");
+            dispatch(clearcart());
+        } catch (error) {
+            console.error("Error creating order:", error);
+            alert("Failed to place order. Please try again.");
         }
-        console.log("Order Details:", newOrder);
-
     }
-
+    if (error) {
+        console.error("Error placing order:", error);
+        alert("Failed to place order. Please try again.");
+    }
+    if(isLoading) {
+        return <div className="text-center">Placing your order...</div>;
+    }
     return (
         <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
             <div className="container max-w-screen-lg mx-auto">
@@ -200,7 +220,9 @@ const Checkout = () => {
                                                         : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                                                 }`}
                                             >
-                                                Place an Order
+                                                <Link to="/orders">
+                                                    Place an Order
+                                                </Link>
                                             </button>
                                         </div>
                                     </div>
