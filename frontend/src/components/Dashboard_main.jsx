@@ -172,33 +172,42 @@ const Dashboard_main = () => {
         }
     ];
 
-    const quickActions = [
-        {
-            title: 'Add New Book',
-            description: 'Add a new book to your inventory',
-            path: 'add-new-book',
-            icon: MdAdd,
-            color: 'bg-gradient-to-r from-indigo-500 to-indigo-600',
-            hoverColor: 'hover:from-indigo-600 hover:to-indigo-700'
-        },
-        {
-            title: 'Manage Books',
-            description: 'Edit or delete existing books',
-            path: '/manage-books',
-            icon: MdEdit,
-            color: 'bg-gradient-to-r from-green-500 to-green-600',
-            hoverColor: 'hover:from-green-600 hover:to-green-700'
-        },
-        {
-            title: 'View Analytics',
-            description: 'Check sales and performance metrics',
-            path: '/dashboard/stats',
-            icon: MdAnalytics,
-            color: 'bg-gradient-to-r from-purple-500 to-purple-600',
-            hoverColor: 'hover:from-purple-600 hover:to-purple-700'
-        }
-    ];
+    // Update the quickActions array with correct relative paths:
 
+const quickActions = [
+    {
+        title: 'Add New Book',
+        description: 'Add a new book to your inventory',
+        path: 'add-new-book', // ✅ Relative path (no leading /)
+        icon: MdAdd,
+        color: 'bg-gradient-to-r from-indigo-500 to-indigo-600',
+        hoverColor: 'hover:from-indigo-600 hover:to-indigo-700'
+    },
+    {
+        title: 'Manage Books', 
+        description: 'Edit or delete existing books',
+        path: 'manage-books', // ✅ Fixed: Relative path
+        icon: MdEdit,
+        color: 'bg-gradient-to-r from-green-500 to-green-600',
+        hoverColor: 'hover:from-green-600 hover:to-green-700'
+    },
+    {
+        title: 'View Analytics',
+        description: 'Check sales and performance metrics',
+        path: 'stats', // ✅ Fixed: Relative path
+        icon: MdAnalytics,
+        color: 'bg-gradient-to-r from-purple-500 to-purple-600',
+        hoverColor: 'hover:from-purple-600 hover:to-purple-700'
+    }
+];
+
+// Also fix the "Manage books →" link:
+<NavLink 
+    to="manage-books" // ✅ Fixed: Relative path (removed /)
+    className="text-indigo-600 hover:text-indigo-500 font-medium text-sm"
+>
+    Manage books →
+</NavLink>
     return (
         <div className="min-h-screen bg-gray-50 p-6">
             <div className="max-w-7xl mx-auto space-y-6">

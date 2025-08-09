@@ -1,7 +1,6 @@
 import {
   createBrowserRouter,
-  
-} from "react-router";
+} from "react-router-dom";
 import App from "../App";
 import Home from "../pages/home/Home";
 import Login from "../components/Login";
@@ -13,12 +12,10 @@ import PrivateRouters from "./PrivateRouters";
 import Orderpage from "../pages/orders/Orderpage";
 import AdminRoute from "./AdminRoute";
 import AdminLogin from "../components/Adminlogin";
-import { MdDashboard } from "react-icons/md";
-import Dashboard from "../components/dashboard";
+import Dashboard from "../components/Dashboard"; // ✅ Main dashboard layout
 import Dashboard_main from "../components/Dashboard_main";
 import Managebooks from "../components/Managebooks";
-import Addbook from "../components/Addbook"; // Import the Addbook component
- // Add this import
+import Addbook from "../components/Addbook";
 
 const router = createBrowserRouter([
   {
@@ -29,10 +26,9 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home/>,
       },
-     
       {
         path: "/about",
-        element: <div>about</div>
+        element: <div>About</div>
       },
       {
         path: "/login", 
@@ -46,46 +42,55 @@ const router = createBrowserRouter([
         path: "/cart",
         element: <Cart/>
       },
-
       {
         path: "/checkout",
         element: <PrivateRouters><Checkout/></PrivateRouters>
       },
       {
-        path : "/books/:id",
+        path: "/books/:id",
         element: <BookDetails/>
       },
       {
-        path : "/orders",
-        element:<PrivateRouters><Orderpage/></PrivateRouters>
+        path: "/orders",
+        element: <PrivateRouters><Orderpage/></PrivateRouters>
       }
     ]
   },
   {
-    path : "/admin",
+    path: "/admin",
     element: <AdminLogin/>
   },
+  // ✅ FIXED: Proper dashboard routing structure
   {
     path: "/dashboard",
-    element: <AdminRoute><Dashboard_main/></AdminRoute>,
+    element: <AdminRoute><Dashboard /></AdminRoute>, // ✅ Main layout wrapper
     children: [
       {
-        path: "/dashboard",
-        element: <AdminRoute><div>Dashboard Content</div></AdminRoute>
+        path: "", // ✅ Empty path = /dashboard shows Dashboard_main
+        element: <Dashboard_main />
       },
       {
-        path : "add-new-book",
-        element: <AdminRoute><Addbook/></AdminRoute>
+        path: "add-new-book", // ✅ /dashboard/add-new-book
+        element: <Addbook />
       },
       {
-        path : "manage-books",
-        element: <AdminRoute><Managebooks/></AdminRoute>
+        path: "manage-books", // ✅ /dashboard/manage-books  
+        element: <Managebooks />
       },
       {
-        path : "edit-book/:id",
-        element: <AdminRoute><div>Edit Book</div></AdminRoute>
+        path: "edit-book/:id", // ✅ /dashboard/edit-book/123
+        element: <div>Edit Book Component</div>
+      },
+      {
+        path: "stats", // ✅ /dashboard/stats
+        element: <div>Analytics Component</div>
+      },
+      {
+        path: "orders", // ✅ /dashboard/orders
+        element: <div>Orders Management</div>
       }
     ]
-  },
+  }
 ]);
-export default router; 
+
+export default router;
